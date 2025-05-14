@@ -5,7 +5,9 @@ import SearchBar from './SearchBar';
 const Navbar: React.FC = () => {
   return (
     <header className="flex items-center justify-between px-8 py-6 border-b border-slate-600 sticky top-0 shadow-md z-50 bg-slate-900 backdrop-blur shadow-slate-600">
-        <span className="text-2xl font-bold tracking-tight text-white mr-auto">NeoPCs</span>
+        <a href="#hero" className="flex items-center">
+          <span className="text-2xl font-bold tracking-tight text-indigo-400 mr-auto">NeoPCs</span>
+        </a>
 
         {/* small screens: inline flex with other items */}
         <div className="flex-1 md:hidden px-4">
