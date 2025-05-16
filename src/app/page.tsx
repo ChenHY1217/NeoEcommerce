@@ -1,55 +1,48 @@
 import React from 'react';
 import Navbar from '@/components/Navbar/Navbar';
 import Hero from '@/components/Main/Hero';
-import PopularProducts from '@/components/Main/PopularProducts';
-
-const products = [
-  {
-    id: 1,
-    name: "Gaming Desktop Pro X",
-    price: "$1,499",
-    image: "/gaming-desktop.jpg",
-    description: "High-performance desktop with RTX 4070, 32GB RAM, 1TB SSD."
-  },
-  {
-    id: 2,
-    name: "UltraBook 15" ,
-    price: "$999",
-    image: "/ultrabook.jpg",
-    description: "Sleek 15'' laptop, Intel i7, 16GB RAM, 512GB SSD."
-  },
-  {
-    id: 3,
-    name: "Mechanical Keyboard RGB",
-    price: "$129",
-    image: "/keyboard.jpg",
-    description: "Customizable RGB, blue switches, USB-C."
-  },
-  {
-    id: 4,
-    name: "4K Gaming Monitor",
-    price: "$399",
-    image: "/monitor.jpg",
-    description: "27'' 4K UHD, 144Hz, HDR, ultra-thin bezels."
-  },
-  // Add more PC products as needed
-];
+import FeaturedProducts from '@/components/Main/FeaturedProducts';
+import Footer from '@/components/Footer/Footer';
 
 const Home: React.FC = () => {
   return (
     <div className=" bg-slate-900 text-white flex flex-col">
-      {/* Navbar */}
-      <Navbar />
 
       <Hero />
 
-      <PopularProducts products={products} />
+      <FeaturedProducts />
+
+      {/* Add more sections here as needed */}
+
+
+      
+      {/* Footer */}
+      <div className='flex flex-col items-center justify-center my-16'>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-indigo-400">Why Choose Us?</h2>
+        <p className="text-center text-gray-400 mb-8">We offer the best PCs and accessories tailored to your needs.</p>
+        <div className="flex justify-center">
+          <div className="w-36 h-1 bg-indigo-400 rounded-full"></div>
+        </div>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-8">
+          <div className="bg-white/10 p-6 rounded-lg shadow-lg max-w-xs text-center">
+            <h3 className="text-xl font-semibold mb-4 text-cyan-300">Quality Assurance</h3>
+            <p className="text-gray-300">All our products undergo rigorous testing to ensure top-notch quality.</p>
+          </div>
+          <div className="bg-white/10 p-6 rounded-lg shadow-lg max-w-xs text-center">
+            <h3 className="text-xl font-semibold mb-4 text-cyan-300">Customer Support</h3>
+            <p className="text-gray-300">Our dedicated support team is here to assist you 24/7.</p>
+          </div>
+          <div className="bg-white/10 p-6 rounded-lg shadow-lg max-w-xs text-center">
+            <h3 className="text-xl font-semibold mb-4 text-cyan-300">Fast Shipping</h3>
+            <p className="text-gray-300">Get your products delivered quickly and safely to your doorstep.</p>
+          </div>
+
+        </div>
+      </div>
       
 
-      {/* Footer */}
-      <footer className="text-center text-gray-500 py-6 border-t border-gray-800 mt-8">
-        &copy; {new Date().getFullYear()} NeoPCs. All rights reserved.
-      </footer>
+      <Footer />
+      
     </div>
   );
 };
