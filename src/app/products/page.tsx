@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Product, allProducts } from '@/data/products';
+import AddToCartButton from '@/components/Cart/AddToCartButton';
 
 const ProductsPage: React.FC = () => {
   const searchParams = useSearchParams();
@@ -226,12 +227,12 @@ const ProductsPage: React.FC = () => {
                     <h3 className="font-bold text-xl mb-2 text-cyan-300 hover:text-indigo-300 transition-colors duration-300">{product.name}</h3>
                   </Link>
                   <p className="text-gray-300 text-sm mb-4 line-clamp-3">{product.description}</p>
-                </div>
-                <div className="flex items-center justify-between mt-auto">
+                </div>                <div className="flex items-center justify-between mt-auto">
                   <span className="text-white font-semibold">{product.price}</span>
-                  <button className="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 transition-colors duration-300">
-                    Add to Cart
-                  </button>
+                  <AddToCartButton 
+                    product={product}
+                    className="px-4 py-2 bg-indigo-500 rounded text-black hover:bg-indigo-600 transition-colors duration-300"
+                  />
                 </div>
               </div>
             </motion.div>

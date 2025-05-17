@@ -3,8 +3,15 @@
 import React from 'react'
 import { motion } from "motion/react";
 import Link from 'next/link';
+import { allProducts } from '@/data/products';
+import AddToCartButton from '@/components/Cart/AddToCartButton';
 
 const FeaturedProducts: React.FC = () => {
+  // Find products by ID
+  const corsairPC = allProducts.find(p => p.id === 1);
+  const msiLaptop = allProducts.find(p => p.id === 6);
+  const nuphyKeyboard = allProducts.find(p => p.id === 11);
+
   return (    
   
     <section id="products" className="flex-1 px-4 md:px-8 py-8 flex-col flex items-center justify-center max-w-7xl mx-auto ">
@@ -61,7 +68,12 @@ const FeaturedProducts: React.FC = () => {
             </Link>
             <span className="text-gray-200 text-xl mb-3 font-medium">$2,799.99</span>
             <p className="text-gray-300 mb-8 leading-relaxed">Corsair's Vengeance i7600 gaming PC stands out with its superior build quality, excellent gaming performance, quiet operation, and an extensive two-year warranty. It's an excellent choice for those looking to invest in a premium gaming rig.</p>
-            <button className="px-8 py-3 bg-indigo-400 text-gray-900 rounded-md hover:bg-cyan-300 transition font-semibold shadow-md hover:shadow-lg hover:shadow-indigo-400/30">Add to Cart</button>
+            {corsairPC && (
+              <AddToCartButton 
+                product={corsairPC} 
+                className="px-8 py-3 bg-indigo-400 text-gray-900 rounded-md hover:bg-cyan-300 transition font-semibold shadow-md hover:shadow-lg hover:shadow-indigo-400/30" 
+              />
+            )}
         </div>
       </motion.div>        
       
@@ -83,8 +95,13 @@ const FeaturedProducts: React.FC = () => {
               <h2 className="text-2xl md:text-3xl font-semibold mb-3 text-cyan-300 hover:text-indigo-300 transition-colors duration-300">MSI Titan 18 HX AI</h2>
             </Link>
             <span className="text-gray-200 text-xl mb-3 font-medium">$5,999.99</span>
-            <p className="text-gray-300 mb-8 leading-relaxed">MSI’s latest Titan delivers chart-topping performance, an extremely vibrant screen, and 6TB of SSD storage. Its loud fans and brief battery life are to be expected — this is a gaming dream machine for those who with a larger budget.</p>
-            <button className="px-8 py-3 bg-indigo-400 text-gray-900 rounded-md hover:bg-cyan-300 transition font-semibold shadow-md hover:shadow-lg hover:shadow-indigo-400/30">Add to Cart</button>
+            <p className="text-gray-300 mb-8 leading-relaxed">MSI's latest Titan delivers chart-topping performance, an extremely vibrant screen, and 6TB of SSD storage. Its loud fans and brief battery life are to be expected — this is a gaming dream machine for those who with a larger budget.</p>
+            {msiLaptop && (
+              <AddToCartButton 
+                product={msiLaptop}
+                className="px-8 py-3 bg-indigo-400 text-gray-900 rounded-md hover:bg-cyan-300 transition font-semibold shadow-md hover:shadow-lg hover:shadow-indigo-400/30" 
+              />
+            )}
         </div>
       </motion.div>        
       
@@ -107,7 +124,12 @@ const FeaturedProducts: React.FC = () => {
           </Link>
           <span className="text-gray-200 text-xl mb-3 font-medium">$169.99</span>
           <p className="text-gray-300 mb-8 leading-relaxed">The NuPhy Field75 HE stands out with its customizable Hall effect switches that let you adjust key sensitivity, perfect for competitive gaming with features like rapid trigger and an 8000Hz polling rate for measurably lower latency. Built with premium materials including PBT keycaps and multiple layers of acoustic foam, this keyboard delivers both performance and quality that serious gamers demand.</p>
-          <button className="px-8 py-3 bg-indigo-400 text-gray-900 rounded-md hover:bg-cyan-300 transition font-semibold shadow-md hover:shadow-lg hover:shadow-indigo-400/30">Add to Cart</button>
+          {nuphyKeyboard && (
+            <AddToCartButton 
+              product={nuphyKeyboard}
+              className="px-8 py-3 bg-indigo-400 text-gray-900 rounded-md hover:bg-cyan-300 transition font-semibold shadow-md hover:shadow-lg hover:shadow-indigo-400/30" 
+            />
+          )}
         </div>
       </motion.div>
 

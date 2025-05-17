@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar/Navbar";
+import CartWrapper from "@/components/Cart/CartWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,8 +30,9 @@ export default function RootLayout({
       <body
         className={`${inter.className} antialiased`}
       >
-        <Navbar/>
-        <main>{children}</main>
+        <CartWrapper>
+          <main>{children}</main>
+        </CartWrapper>
       </body>
     </html>
   );
