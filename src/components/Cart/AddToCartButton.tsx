@@ -35,7 +35,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
 
   return (
     <button
-      className={` px-4 py-2 rounded-mdtransition-colors ${className}`}
+      className={` px-4 py-2 rounded-md transition-colors ${className} `}
       onClick={handleAddToCart}
     >
       {showIcon && (

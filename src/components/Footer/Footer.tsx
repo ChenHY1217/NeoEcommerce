@@ -1,4 +1,5 @@
 import React from 'react'
+import { FaGithub } from 'react-icons/fa'
 
 const Footer: React.FC = () => {
   return (
@@ -22,10 +23,23 @@ const Footer: React.FC = () => {
             <h3 className="text-xl font-semibold mb-4 text-cyan-300">Fast Shipping</h3>
             <p className="text-gray-300">Get your products delivered quickly and safely to your doorstep.</p>
           </div>
-        </div>
+        </div>      
       </div>
-      <footer className="text-center text-gray-500 py-6 border-t border-gray-800 mt-8">
-          &copy; {new Date().getFullYear()} NeoPCs. All rights reserved.
+      <footer className="text-center py-6 border-t border-gray-800 mt-8">
+          <div className="flex flex-col items-center justify-center">
+              <div className="flex items-center justify-center mb-2">
+                <a 
+                  href="https://github.com/ChenHY1217/NeoEcommerce" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-indigo-400 transition-colors"
+                  aria-label="GitHub Repository"
+                >
+                  <FaGithub size={24} />
+                </a>
+              </div>
+              <p className="text-gray-500">&copy; {new Date().getFullYear()} NeoPCs. All rights reserved.</p>
+          </div>
       </footer>
     </div>
   )

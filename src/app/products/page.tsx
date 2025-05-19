@@ -231,7 +231,7 @@ const ProductsPage: React.FC = () => {
                   <span className="text-white font-semibold">{product.price}</span>
                   <AddToCartButton 
                     product={product}
-                    className="px-4 py-2 bg-indigo-500 rounded text-black hover:bg-indigo-600 transition-colors duration-300"
+                    className="px-4 py-2 bg-indigo-500 rounded text-black hover:bg-cyan-300 transition-colors duration-300"
                   />
                 </div>
               </div>

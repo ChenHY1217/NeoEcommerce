@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from './CartContext';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -17,15 +17,22 @@ const ShoppingCartPanel = () => {
     isCartOpen, 
     toggleCart 
   } = useCart();
-  
-  const [isLoading, setIsLoading] = useState(false);
-  const stripePromise = getStripe();
+    const [isLoading, setIsLoading] = useState(false);
 
   const handleCheckout = async () => {
     setIsLoading(true);
     try {
+      // Get Stripe instance only at the point of checkout
+      const stripePromise = getStripe();
+      if (!stripePromise) {
+        throw new Error('Failed to initialize Stripe');
+      }
+      
       const stripe = await stripePromise;
-      const response = await fetch('/api/checkout', {
+      if (!stripe) {
+        throw new Error('Stripe failed to load');
+      }
+        const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,15 +40,24 @@ const ShoppingCartPanel = () => {
         body: JSON.stringify({ items: cart }),
       });
       
-    //   console.log('Response from checkout API:', response);
-      const { sessionId } = await response.json();
-    //   console.log('Checkout session ID:', sessionId);
+      // Parse the JSON response once and store it
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || `API error: ${response.status}`);
+      }
+      
+      if (!data.sessionId) {
+        throw new Error('No session ID returned from checkout API');
+      }
+      
+      const { sessionId } = data;
       
       // Redirect to Stripe Checkout
-      const { error } = await stripe!.redirectToCheckout({ sessionId: sessionId });
+      const { error } = await stripe.redirectToCheckout({ sessionId });
       if (error) {
         console.error('Stripe checkout error:', error);
-        alert('There was an error processing your payment. Please try again1.');
+        alert('There was an error processing your payment. Please try again.');
       }
     } catch (error) {
       console.error('Error during checkout:', error);
@@ -123,6 +139,7 @@ const ShoppingCartPanel = () => {
                               src={item.image}
                               alt={item.name}
                               fill
+                              sizes='100%'
                               className="object-cover object-center"
                             />
                           </div>

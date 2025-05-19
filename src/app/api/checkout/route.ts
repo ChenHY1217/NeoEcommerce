@@ -44,18 +44,35 @@ export async function POST(req: NextRequest) {
     
     if (imageUrl && (imageUrl.startsWith('http://') || imageUrl.startsWith('https://'))) {
         productData.images = [imageUrl];
-    }
+    }    // Convert price to cents for Stripe, avoiding floating point errors
+    const priceString = item.price.replace('$', '').replace(',', '').trim();
+
+    // Handle the price as a string and convert to cents without floating point errors
+    const priceParts = priceString.split('.');
+    let priceInCents;
+    
+    if (priceParts.length === 1) {
+        // No decimal part
+        priceInCents = parseInt(priceParts[0]) * 100;
+    } else {
+        // Has decimal part
+        const dollars = parseInt(priceParts[0]);
+        // Ensure cents has two digits (pad with 0 if needed)
+        const cents = priceParts[1].padEnd(2, '0').substring(0, 2);
+        priceInCents = dollars * 100 + parseInt(cents);
+    }``
     
     return {
         price_data: {
         currency: 'usd',
         product_data: productData,
-        unit_amount: Math.round(parseFloat(item.price.replace('$', '')) * 100),
+        unit_amount: priceInCents,
         },
         quantity: item.quantity,
     };
-    });
-
+    });    // Ensure we have a base URL
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    
     // Create a checkout session
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
@@ -64,7 +81,8 @@ export async function POST(req: NextRequest) {
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/cancel`,
     });
 
-    return NextResponse.json({ sessionId: session.id, status: 205 });  
+    // Return just the sessionId to match what the client expects
+    return NextResponse.json({ sessionId: session.id });
 } catch (error: any) {
     console.error('Stripe checkout error:', error);
     const errorMessage = error.message || 'Error creating checkout session';

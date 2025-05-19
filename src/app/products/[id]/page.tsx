@@ -167,7 +167,7 @@ const ProductPage: React.FC = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <div className="flex items-center border border-gray-700 rounded-md">
                     <button 
-                      className="px-4 py-2 text-white bg-gray-800 hover:bg-gray-700 transition rounded-l"
+                      className="cursor-pointer px-4 py-2 text-white bg-gray-800 hover:bg-gray-700 transition rounded-l"
                       onClick={() => setPurchaseAmount(prev => Math.max(1, prev - 1))}
                     >
                       -
@@ -184,7 +184,7 @@ const ProductPage: React.FC = () => {
                         className="w-16 px-2 py-2 text-center bg-transparent border-x border-gray-700 text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                     />
                     <button 
-                      className="px-4 py-2 text-white bg-gray-800 hover:bg-gray-700 transition rounded-r"
+                      className="cursor-pointer px-4 py-2 text-white bg-gray-800 hover:bg-gray-700 transition rounded-r"
                       onClick={() => setPurchaseAmount(prev => prev + 1)}
                     >
                       +
@@ -210,7 +210,7 @@ const ProductPage: React.FC = () => {
                 <Link
                   key={related.id}
                   href={`/products/${related.id}`}
-                  className="bg-white/10 rounded-lg overflow-hidden hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 flex flex-col"
+                  className="bg-white/10 rounded-lg overflow-hidden hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 flex flex-col hover:scale-105 "
                 >
                   <div className="h-40 overflow-hidden bg-slate-800">
                     <img 

@@ -26,9 +26,9 @@ const Navbar: React.FC = () => {
         </div>        
         
         <nav className="gap-6 items-center ml-auto hidden md:flex mr-10">
-            <Link href="/products" className="hover:text-gray-300 transition hover:border-b ">Shop</Link>
-            <a href="#" className="hover:text-gray-300 transition hover:border-b ">About</a>
-            <a href="#" className="hover:text-gray-300 transition hover:border-b ">Contact</a>
+            <Link href="/products" className="hover:text-indigo-400 transition hover:border-b ">Shop</Link>
+            <a href="" className="hover:text-indigo-400 transition hover:border-b ">About</a>
+            <a href="" className="hover:text-indigo-400 transition hover:border-b ">Contact</a>
         </nav>          
         
         <div className="relative">

@@ -42,23 +42,29 @@ interface CartProviderProps {
 }
 
 export const CartProvider = ({ children }: CartProviderProps) => {
-  // Initialize cart from localStorage if available or empty array
-  const [cart, setCart] = useState<CartItem[]>(() => {
-    if (typeof window !== 'undefined') {
-      const savedCart = localStorage.getItem('cart');
-      return savedCart ? JSON.parse(savedCart) : [];
-    }
-    return [];
-  });
-  
+  // Always initialize with empty array to prevent hydration mismatch
+  // We'll load from localStorage in an effect
+  const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
   
-  // Save cart to localStorage whenever it changes
+  // Load cart from localStorage only after initial render (client-side only)
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      const savedCart = localStorage.getItem('cart');
+      if (savedCart) {
+        setCart(JSON.parse(savedCart));
+      }
+      setIsInitialized(true);
+    }
+  }, []);
+  
+  // Save cart to localStorage whenever it changes (but only after initialization)
+  useEffect(() => {
+    if (typeof window !== 'undefined' && isInitialized) {
       localStorage.setItem('cart', JSON.stringify(cart));
     }
-  }, [cart]);
+  }, [cart, isInitialized]);
   
   // Calculate total items in cart
   const itemCount = cart.reduce((total, item) => total + item.quantity, 0);

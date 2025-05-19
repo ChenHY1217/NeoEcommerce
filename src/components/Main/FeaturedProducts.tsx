@@ -17,7 +17,7 @@ const FeaturedProducts: React.FC = () => {
     <section id="products" className="flex-1 px-4 md:px-8 py-8 flex-col flex items-center justify-center max-w-7xl mx-auto ">
       {/* Section Title */}
       <motion.div 
-          className='flex flex-col items-center mb-16'
+          className='flex flex-col items-center mb-10'
           whileInView={{ opacity: 1, x: 0 }}
           initial={{ opacity: 0, x: -100 }}
           transition={{ duration: 1 }}
@@ -71,7 +71,7 @@ const FeaturedProducts: React.FC = () => {
             {corsairPC && (
               <AddToCartButton 
                 product={corsairPC} 
-                className="px-8 py-3 bg-indigo-400 text-gray-900 rounded-md hover:bg-cyan-300 transition font-semibold shadow-md hover:shadow-lg hover:shadow-indigo-400/30" 
+                className="px-8 py-3 bg-indigo-400 text-gray-900 rounded-md hover:bg-cyan-300 transition font-semibold shadow-md hover:shadow-lg hover:shadow-indigo-400/30 cursor-pointer" 
               />
             )}
         </div>
@@ -99,7 +99,7 @@ const FeaturedProducts: React.FC = () => {
             {msiLaptop && (
               <AddToCartButton 
                 product={msiLaptop}
-                className="px-8 py-3 bg-indigo-400 text-gray-900 rounded-md hover:bg-cyan-300 transition font-semibold shadow-md hover:shadow-lg hover:shadow-indigo-400/30" 
+                className="px-8 py-3 bg-indigo-400 text-gray-900 rounded-md hover:bg-cyan-300 transition font-semibold shadow-md hover:shadow-lg hover:shadow-indigo-400/30 cursor-pointer" 
               />
             )}
         </div>
@@ -127,7 +127,7 @@ const FeaturedProducts: React.FC = () => {
           {nuphyKeyboard && (
             <AddToCartButton 
               product={nuphyKeyboard}
-              className="px-8 py-3 bg-indigo-400 text-gray-900 rounded-md hover:bg-cyan-300 transition font-semibold shadow-md hover:shadow-lg hover:shadow-indigo-400/30" 
+              className="px-8 py-3 bg-indigo-400 text-gray-900 rounded-md hover:bg-cyan-300 transition font-semibold shadow-md hover:shadow-lg hover:shadow-indigo-400/30 cursor-pointer" 
             />
           )}
         </div>
