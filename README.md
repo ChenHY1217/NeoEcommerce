@@ -29,7 +29,6 @@ Ecommerce Website with a Minimalistic Modern Feel
 1. Clone the repository
 ```bash
 git clone https://github.com/ChenHY1217/NeoEcommerce.git
-cd NeoEcommerce
 ```
 
 2. Install dependencies
