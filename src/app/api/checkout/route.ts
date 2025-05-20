@@ -19,10 +19,17 @@ export async function POST(req: NextRequest) {
         { error: 'Please provide items to checkout' },
         { status: 400 }
       );
+    }    // Define a proper type for cart items
+    interface CartItem {
+      image: string;
+      name: string;
+      category?: string;
+      price: string;
+      quantity: number;
     }
-
+    
     // Create line items for Stripe
-    const lineItems = items.map((item: any) => {
+    const lineItems = items.map((item: CartItem) => {
     // Process image URL
     let imageUrl = item.image;
     
@@ -60,18 +67,16 @@ export async function POST(req: NextRequest) {
         // Ensure cents has two digits (pad with 0 if needed)
         const cents = priceParts[1].padEnd(2, '0').substring(0, 2);
         priceInCents = dollars * 100 + parseInt(cents);
-    }``
-    
-    return {
+    }
+      return {
         price_data: {
         currency: 'usd',
         product_data: productData,
         unit_amount: priceInCents,
         },
-        quantity: item.quantity,
+        quantity: typeof item.quantity === 'string' ? parseInt(item.quantity, 10) : item.quantity,
     };
-    });    // Ensure we have a base URL
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    });
     
     // Create a checkout session
     const session = await stripe.checkout.sessions.create({
@@ -79,20 +84,33 @@ export async function POST(req: NextRequest) {
       mode: 'payment',
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/cancel`,
-    });
-
-    // Return just the sessionId to match what the client expects
+    });    // Return just the sessionId to match what the client expects
     return NextResponse.json({ sessionId: session.id });
-} catch (error: any) {
+} catch (error: unknown) {
     console.error('Stripe checkout error:', error);
-    const errorMessage = error.message || 'Error creating checkout session';
+    const errorMessage = 'Error creating checkout session';
     
-    // Return more detailed error for troubleshooting
+    // Type guard for Stripe errors
+    if (error instanceof Stripe.errors.StripeError) {
+      // Handle specific Stripe error with proper typing
+      return NextResponse.json(
+        { 
+          error: errorMessage,
+          details: error.type,
+          code: error.code,
+          message: error.message,
+          stack: process.env.NODE_ENV === 'development' ? error.stack : undefined 
+        },
+        { status: error.statusCode || 500 }
+      );
+    }
+    
+    // Handle generic errors
     return NextResponse.json(
       { 
         error: errorMessage,
-        details: error.type || error.code || 'Unknown error type',
-        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined 
+        details: 'Unknown error type',
+        stack: process.env.NODE_ENV === 'development' && error instanceof Error ? error.stack : undefined 
       },
       { status: 500 }
     );

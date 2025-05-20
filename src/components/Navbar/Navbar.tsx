@@ -3,11 +3,9 @@
 import React from 'react'
 import SearchBar from './SearchBar';
 import Link from 'next/link';
-import { useCart } from '../Cart/CartContext';
 import CartButton from '../Cart/CartButton';
 
 const Navbar: React.FC = () => {
-  const { itemCount, toggleCart } = useCart();
   
   return (
     <header className="flex items-center justify-between px-8 py-6 border-b border-slate-600 sticky top-0 shadow-md z-50 bg-slate-900 backdrop-blur shadow-slate-600 text-white">

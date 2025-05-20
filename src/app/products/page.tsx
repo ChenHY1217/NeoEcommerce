@@ -1,13 +1,15 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { Product, allProducts } from '@/data/products';
 import AddToCartButton from '@/components/Cart/AddToCartButton';
 
-const ProductsPage: React.FC = () => {
+// Search params handler component
+const ProductsContent: React.FC = () => {
   const searchParams = useSearchParams();
   
   // State for filters
@@ -212,12 +214,14 @@ const ProductsPage: React.FC = () => {
               whileHover={{ y: -5 }}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-            >              <div className="h-48 overflow-hidden bg-slate-800">
+              transition={{ duration: 0.3 }}            >              
+              <div className="h-48 overflow-hidden bg-slate-800">
                 <Link href={`/products/${product.id}`}>
-                  <img 
+                  <Image 
                     src={product.image} 
-                    alt={product.name} 
+                    alt={product.name}
+                    width={300}
+                    height={192}
                     className="w-full h-full object-cover object-center transform hover:scale-105 transition-all duration-500"
                   />
                 </Link>
@@ -269,6 +273,27 @@ const ProductsPage: React.FC = () => {
         </Link>
       </div>
     </div>
+  );
+};
+
+// Loading state for Suspense
+const ProductsLoading: React.FC = () => {
+  return (
+    <div className="bg-slate-900 min-h-screen text-white pb-16 flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-16 h-16 border-4 border-indigo-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-gray-300">Loading products...</p>
+      </div>
+    </div>
+  );
+};
+
+// Main component with Suspense boundary
+const ProductsPage: React.FC = () => {
+  return (
+    <Suspense fallback={<ProductsLoading />}>
+      <ProductsContent />
+    </Suspense>
   );
 };
 

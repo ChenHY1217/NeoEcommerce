@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useCart } from '@/components/Cart/CartContext';
 
-export default function CheckoutSuccess() {
+function CheckoutSuccessContent() {
   const { clearCart } = useCart();
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
@@ -43,6 +43,26 @@ export default function CheckoutSuccess() {
           </Link>
         </div>
       </div>
+    </div>  );
+}
+
+// Loading state for Suspense
+function CheckoutSuccessLoading() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow flex flex-col items-center">
+        <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+        <p className="mt-4 text-gray-600">Processing your order...</p>
+      </div>
     </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function CheckoutSuccess() {
+  return (
+    <Suspense fallback={<CheckoutSuccessLoading />}>
+      <CheckoutSuccessContent />
+    </Suspense>
   );
 }

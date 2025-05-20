@@ -19,7 +19,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   showIcon = true,
   onAddToCart 
 }) => {
-  const { addToCart, toggleCart } = useCart();
+  const { addToCart } = useCart();
 
   const handleAddToCart = () => {
     // Add product to cart with specified quantity

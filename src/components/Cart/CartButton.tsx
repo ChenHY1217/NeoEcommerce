@@ -7,16 +7,6 @@ import { ClientOnly } from '@/lib/client-utils';
 const CartButton = () => {
   const { itemCount, toggleCart } = useCart();
   
-  // Use useState and useEffect to handle client-side rendering of count badge
-  const [showBadge, setShowBadge] = React.useState(false);
-  const [count, setCount] = React.useState(0);
-  
-  // Only update badge visibility after hydration is complete
-  React.useEffect(() => {
-    setShowBadge(itemCount > 0);
-    setCount(itemCount);
-  }, [itemCount]);
-  
   return (
     <button 
       onClick={toggleCart}

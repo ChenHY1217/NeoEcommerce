@@ -4,13 +4,10 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { motion } from 'motion/react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { allProducts } from '@/data/products';
 import { useParams } from 'next/navigation';
 import AddToCartButton from '@/components/Cart/AddToCartButton';
-
-interface ProductPageProps {
-  params: { id: string };
-}
 
 const ProductPage: React.FC = () => {
   // Find the product by ID
@@ -66,12 +63,14 @@ const ProductPage: React.FC = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <div className="bg-slate-800 rounded-lg overflow-hidden shadow-xl shadow-black/20">
-              <img 
+          >            <div className="bg-slate-800 rounded-lg overflow-hidden shadow-xl shadow-black/20">
+              <Image 
                 src={product.image} 
                 alt={product.name} 
-                className="w-full h-auto object-cover"
+                width={600}
+                height={400}
+                className="w-full object-cover"
+                priority
               />
             </div>
           </motion.div>
@@ -135,7 +134,7 @@ const ProductPage: React.FC = () => {
                       </div>
                       <div className="flex items-start">
                         <span className="text-gray-400 mr-2">Display:</span>
-                        <span className="text-white">15.6" 165Hz QHD</span>
+                        <span className="text-white">15.6&quot; 165Hz QHD</span>
                       </div>
                       <div className="flex items-start">
                         <span className="text-gray-400 mr-2">Battery:</span>
@@ -211,11 +210,12 @@ const ProductPage: React.FC = () => {
                   key={related.id}
                   href={`/products/${related.id}`}
                   className="bg-white/10 rounded-lg overflow-hidden hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 flex flex-col hover:scale-105 "
-                >
-                  <div className="h-40 overflow-hidden bg-slate-800">
-                    <img 
+                >                  <div className="h-40 overflow-hidden bg-slate-800">
+                    <Image 
                       src={related.image} 
                       alt={related.name} 
+                      width={300}
+                      height={160}
                       className="w-full h-full object-cover object-center"
                     />
                   </div>
